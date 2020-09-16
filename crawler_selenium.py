@@ -20,7 +20,7 @@ logf = open("download.log", "w")
 
 def get_HTML_document_with_JS(tool):
     print(tool['final_url_tool'])
-    #Instance class webdriver
+    #Instance class webdriver with ChromeDriverManager:
     driver = webdriver.Chrome(ChromeDriverManager().install())
     try:
         driver.get(tool['final_url_tool'])
@@ -34,11 +34,7 @@ def get_HTML_document_with_JS(tool):
         logf.write("Failed in tool {0}: {1}\n".format(str(tool), str(e)))
         html= ""
     driver.close()
-    item_dict_url = {'final_url_tool' : tool['final_url_tool']}
-    item_dict_html_js = {'html_js' : html}
-    list_with_dict_items = []
-    list_with_dict_items.append(item_dict_url)
-    list_with_dict_items.append(item_dict_html_js)
+    list_with_dict_items = [{'final_url_tool' : tool['final_url_tool']}, {'html_js' : html}]
     unique_id = tool['idTool'].split("/")[-1]
     path_save_scraped_website = f"htmls_js/{unique_id}.json"
     with open(path_save_scraped_website, 'w') as f:
