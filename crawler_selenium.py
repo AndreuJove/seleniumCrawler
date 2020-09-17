@@ -34,11 +34,10 @@ def get_HTML_document_with_JS(tool):
         logf.write("Failed in tool {0}: {1}\n".format(str(tool), str(e)))
         html= ""
     driver.close()
-    list_with_dict_items = [{'final_url_tool' : tool['final_url_tool']}, {'html_js' : html}]
     unique_id = tool['idTool'].split("/")[-1]
     path_save_scraped_website = f"htmls_js/{unique_id}.json"
     with open(path_save_scraped_website, 'w') as f:
-        json.dump(list_with_dict_items, f)
+        json.dump([{'final_url_tool' : tool['final_url_tool']}, {'html_js' : html}], f)
 
 
 #Instance class Pool with 12 processes simultanously:      
