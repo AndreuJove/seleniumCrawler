@@ -19,8 +19,7 @@ with open(path_tools_to_crawl_js, "r") as fp:
 logf = open("download.log", "w")
 
 def get_HTML_document_with_JS(tool):
-    print(tool['final_url_tool'])
-    #Instance class webdriver with ChromeDriverManager:
+    #Instance class webdriver with ChromeDriverManager to get the latest version of the WebDriver:
     driver = webdriver.Chrome(ChromeDriverManager().install())
     try:
         driver.get(tool['final_url_tool'])
