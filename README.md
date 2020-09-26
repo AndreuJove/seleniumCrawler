@@ -6,7 +6,7 @@ This crawler aims to extract the HTMLs with JavaScript render from the websites 
 - Dataset of bioinformatics tools (used to get the websites of the bioinformatic tools).
 
 #### Output:
-- Each HTML with JavaScript rendered in a JSON file. The name of the file is the Id of the bioinformatic tool. 
+- Each HTML with JavaScript rendered in a JSON file. The name of the file is the Id of the bioinformatic tool. And they are all saved in the htmls_js directory.
 <br />
 
 
