@@ -23,7 +23,7 @@ if __name__ == "__main__":
     parser.add_argument('-o_directory_htmls_js', '--output_directory_htmls', type=str,
                     default="htmls_js", help="Name of the output stats file from crawler")
     
-    args = args = parser.parse_args()
+    args = parser.parse_args()
 
     #Open json file and transformed to a list of dictionaries.
     #Each dictionary has 2 keys: 'final_url_tool' and 'idTool'.

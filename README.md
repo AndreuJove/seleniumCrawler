@@ -14,12 +14,19 @@ This crawler aims to extract the HTMLs with JavaScript render from the websites 
 
 - 1) Open terminal.
 - 2) Go to the current directory where you want the cloned directory to be added using 'cd'.
-- 3) Run the command: 
+- 3) Run the command: <br />
         $ git clone https://github.com/AndreuJove/seleniumCrawler.
-- 4) Install requirements.txt:
+- 4) Install requirements.txt:<br />
         $ pip3 install -r requirements.txt
-- 5) Run the following command:
-        $ python3 crawler_selenium.py
+- 5) Run the following command:<br />
+        $ python3 main.py
+- 6) The name of the output files and the directory to save them can be changed using the following command line (write it with the default values):<br />
+        $ python3 main.py 
+        -i_path_file input_data/tools_for_crawling_js.json
+        -o_directory_htmls_js htmls_js
+
+
+<br />
 <br />
 
 
