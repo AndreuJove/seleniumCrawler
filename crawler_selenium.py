@@ -11,18 +11,6 @@ os.environ['WDM_LOG_LEVEL'] = '0'
 Functions of crawler and managing data files
 """
 
-#Save the item in manifest, for a posterior searching
-def save_item_in_manifest(item, path):
-    data = load_json(path)
-    data['tools_ok_js'].append(item)
-    write_json(data, path)
-
-#This function is called ones to create the template of the output file of the crawler
-def create_file_manifest(path):
-    list_tools = []
-    final_dict = {"tools_ok_js" : list_tools}
-    write_json(final_dict, path)
-    
 #Write on a json file. Input: data and path of the file.
 def write_json(data, path):
     with open(path, 'w') as file:
@@ -53,7 +41,7 @@ def get_html_document_with_js(args, tool):
         html = driver.execute_script("return document.documentElement.outerHTML;")
     #Catch the exception and write on the key exception_selenium of the tool:
     except Exception as exception:
-        tool['exception_selenium'] = "Fail return HTML in {tool['final_url']}. Exception: {str(exception)}"
+        tool['exception_selenium'] = f"Fail return HTML in {tool['final_url']}. Exception: {str(exception)}"
         html= ""
     #Close the driver
     driver.close()
@@ -64,21 +52,13 @@ def get_html_document_with_js(args, tool):
                     "html_js" : html
                 }
 
-    #Create the new path for acces the HTML with JS of the URL.
-    tool['path_html_js'] = tool['path_file'].replace("no_", "")
-
+    if type(tool['id']) == list:
+        tool['id'] = tool['id'][0]
+    id_final = tool['id'].split("/")[-1]
     #Write the item with the id and the html:
-    write_json(html_item, f"{args.o_directory_htmls_js}/{tool['path_html_js']}")
+    write_json(html_item, f"{args.o_directory_htmls_js}/{id_final}.json")
 
-    #Create the path for the manifest of the output of the program
-    path_file_manifest = f"{args.o_directory_data}/{args.output_file}.json"
 
-    #Try to load the the manifest file
-    if not os.path.isfile(path_file_manifest):
-        create_file_manifest(path_file_manifest)
-
-    #Save the new item of the crawler to the manifest json
-    save_item_in_manifest(tool, path_file_manifest)
 
 
 

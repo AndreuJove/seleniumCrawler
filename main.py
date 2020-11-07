@@ -13,7 +13,11 @@ Python Package from crawling websites and saving his HTML with rendered JavaScri
 
 """
 
+
+
 if __name__ == "__main__":
+
+    
 
     start = time.time()
 
@@ -74,18 +78,25 @@ if __name__ == "__main__":
     if not os.path.isdir(args.o_directory_htmls_js):
         os.mkdir(args.o_directory_htmls_js)
 
+    # #Try to load the the manifest file
+    # with open(f"{args.o_directory_data}/{args.output_file}.json", 'w') as file:
+    #     json.dump({"tools_ok_js" : []}, file)
+
     # Pass args as arguments to pool:
     func = partial(get_html_document_with_js, args)
 
     print(f"INFO: Starting the crawler of {len(tools_to_crawl[args.key_access])}, this can take aproach 2h30minutes of execution.")
     #Instance class Pool with 12 processes simultanously:
     pool = Pool(processes=12)
+
+    
     #Call the function and passs the data to crawl:
     pool.map(func, tools_to_crawl[args.key_access])
-
-
 
     #print Time of execution of the crawler:
     end = time.time()
     print("\n\nTime of execution of the crawler:")
     print(end - start)
+
+    
+    os.system('systemctl poweroff') 
