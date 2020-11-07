@@ -82,6 +82,7 @@ if __name__ == "__main__":
     #Call the function and passs the data to crawl:
     pool.map(func, tools_to_crawl[args.key_access][:2])
 
+    
 
     #print Time of execution of the crawler:
     end = time.time()

@@ -6,7 +6,43 @@ This crawler aims to extract the HTMLs with JavaScript render from the websites 
 - Dataset of bioinformatics tools (used to get the websites of the bioinformatic tools).
 
 #### Output:
-- Each HTML with JavaScript rendered in a JSON file. The name of the file is the Id of the bioinformatic tool. And they are all saved in the htmls_js directory.
+- JSON file called by default "manifest_tools.json" inside the directory output_data that follows the next JSON schema:
+
+
+```
+manifest_tools_js.json = {
+  'tools_ok_js' : [
+                        {
+                        "final_url": type="string",
+                        "id": type="string",
+                        "name": type="string",
+                        "first_url": type="string",
+                        "path_file": type="string",
+                        "path_html_js": type="string",
+                        },
+
+                ...
+  ],
+}               
+                        
+```
+
+<br />
+
+- JSON file called by default "entry_n_js.json" inside the directory of htmls_no_js that follows the next JSON schema:
+
+
+```
+
+entry_n.json = {
+  'id' : type="string",
+ 
+  'html_js' : type="string"
+                        
+}
+
+```
+
 <br />
 
 
@@ -22,10 +58,11 @@ This crawler aims to extract the HTMLs with JavaScript render from the websites 
         $ python3 main.py
 - 6) The name of the output files and the directory to save them can be changed using the following command line (write it with the default values):<br />
         $ python3 main.py 
-        -i_path_file input_data/tools_for_crawling_js.json
+        -input_path_file ../mastercrawlerTFG/output_data/manifest_tools.json
+        -key_access tools_ok
         -o_directory_htmls_js htmls_js
-
-
+        -o_directory_data output_data_selenium
+        -output_file manifest_tools_js
 <br />
 <br />
 
@@ -36,12 +73,14 @@ This crawler aims to extract the HTMLs with JavaScript render from the websites 
 
 
 <br />
+<br />
 
 
 ## Authors
 
 Andreu Jové
 
+<br />
 <br />
 
 
