@@ -1,6 +1,7 @@
 import argparse
 import json
 import time
+import sys
 import os
 from functools import partial
 from multiprocessing import Pool
@@ -78,7 +79,7 @@ if __name__ == "__main__":
 
     print(f"INFO: Starting the crawler of {len(tools_to_crawl[args.key_access])}, this can take aproach 2h30minutes of execution.")
     #Instance class Pool with 12 processes simultanously:
-    pool = Pool(processes=2)
+    pool = Pool(processes=12)
     #Call the function and passs the data to crawl:
     pool.map(func, tools_to_crawl[args.key_access])
 
