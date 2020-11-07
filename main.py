@@ -80,9 +80,9 @@ if __name__ == "__main__":
     #Instance class Pool with 12 processes simultanously:
     pool = Pool(processes=2)
     #Call the function and passs the data to crawl:
-    pool.map(func, tools_to_crawl[args.key_access][:2])
+    pool.map(func, tools_to_crawl[args.key_access])
 
-    
+
 
     #print Time of execution of the crawler:
     end = time.time()
