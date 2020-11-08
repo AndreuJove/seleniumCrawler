@@ -42,32 +42,12 @@ if __name__ == "__main__":
                         help="Name of the output directory for the htmls from crawler. Default: htmls_js"
                         )
 
-    #Add the argument of the ouput directory for htmls_js:
-    parser.add_argument(
-                        '-o_directory_data',
-                        type=str,
-                        default="output_data_selenium",
-                        help="Name of the output directory manifest ouput file, that gives the path to each tool. Default: output_data"
-                        )
-
-    #Add the argument of the output file
-    parser.add_argument(
-                        '-output_file',
-                        type=str,
-                        default="manifest_tools_js",
-                        help="Name of the output manifest file of the of selenium crawler. Default is: manifest_tools_js"
-                        )
-
     args = parser.parse_args()
 
     #Open json file.
     with open(args.input_path_file, "r") as fp:
         tools_to_crawl = json.load(fp)
-
-    # Check if the directory for output_data exists and if not exists create it:
-    if not os.path.isdir(args.o_directory_data):
-        os.mkdir(args.o_directory_data)
-
+        
     #Check if the directory for HTMLs exists and if not exists create it:
     if not os.path.isdir(args.o_directory_htmls_js):
         os.mkdir(args.o_directory_htmls_js)
