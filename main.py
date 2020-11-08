@@ -1,11 +1,10 @@
 import argparse
 import json
 import time
-import sys
 import os
 from functools import partial
 from multiprocessing import Pool
-from crawler_selenium import get_html_document_with_js
+from crawler_selenium import get_html_document_with_js, extract_id_tool
 
 """
 
@@ -13,11 +12,7 @@ Python Package from crawling websites and saving his HTML with rendered JavaScri
 
 """
 
-
-
 if __name__ == "__main__":
-
-    
 
     start = time.time()
 
@@ -55,7 +50,7 @@ if __name__ == "__main__":
                         help="Name of the output directory manifest ouput file, that gives the path to each tool. Default: output_data"
                         )
 
-    #Add the argument of the output file:                 
+    #Add the argument of the output file
     parser.add_argument(
                         '-output_file',
                         type=str,
@@ -65,31 +60,27 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
 
-    #Open json file and transformed to a list of dictionaries.
-    #Each dictionary has 2 keys: 'final_url_tool' and 'idTool'.
+    #Open json file.
     with open(args.input_path_file, "r") as fp:
         tools_to_crawl = json.load(fp)
 
     # Check if the directory for output_data exists and if not exists create it:
     if not os.path.isdir(args.o_directory_data):
         os.mkdir(args.o_directory_data)
-    
+
     #Check if the directory for HTMLs exists and if not exists create it:
     if not os.path.isdir(args.o_directory_htmls_js):
         os.mkdir(args.o_directory_htmls_js)
 
-    # #Try to load the the manifest file
-    # with open(f"{args.o_directory_data}/{args.output_file}.json", 'w') as file:
-    #     json.dump({"tools_ok_js" : []}, file)
+    tools_to_crawl[args.key_access] = extract_id_tool(tools_to_crawl[args.key_access])
 
     # Pass args as arguments to pool:
     func = partial(get_html_document_with_js, args)
 
-    print(f"INFO: Starting the crawler of {len(tools_to_crawl[args.key_access])}, this can take aproach 2h30minutes of execution.")
+    print(f"INFO: Starting the crawler of {len(tools_to_crawl)}, this can take aproach 2h30minutes of execution.")
     #Instance class Pool with 12 processes simultanously:
     pool = Pool(processes=12)
 
-    
     #Call the function and passs the data to crawl:
     pool.map(func, tools_to_crawl[args.key_access])
 
@@ -97,6 +88,3 @@ if __name__ == "__main__":
     end = time.time()
     print("\n\nTime of execution of the crawler:")
     print(end - start)
-
-    
-    os.system('systemctl poweroff') 

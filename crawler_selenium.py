@@ -1,15 +1,22 @@
 import os
 import time
 import json
-import logging
 from selenium import webdriver
 from webdriver_manager.chrome import ChromeDriverManager
 
+#Declared variable for avoiding innecessary log from ChromeDriverManager.
 os.environ['WDM_LOG_LEVEL'] = '0'
 
 """
-Functions of crawler and managing data files
+Functions of crawler and managing data files.
 """
+#Extract a name for tools:
+def extract_id_tool(iterable):
+    for tool in iterable:
+        if isinstance(tool['id'], list):
+            tool['id'] = tool['id'][0]
+        tool['id_for_filename'] = tool['id'].split("/")[-1]
+    return iterable
 
 #Write on a json file. Input: data and path of the file.
 def write_json(data, path):
@@ -21,10 +28,10 @@ def load_json(path_file):
     with open(path_file) as output:
         return json.load(output)
 
-def get_html_document_with_js(args, tool):  
+def get_html_document_with_js(args, tool):
     print(f"INFO: Scraping {tool['final_url']}")
     driver = webdriver.Chrome(ChromeDriverManager().install())
-
+    driver.set_page_load_timeout(30)
     #Create a empty key value to catch the exception of the website
     tool['exception_selenium'] = ""
     #Request the website if it's available
@@ -52,15 +59,5 @@ def get_html_document_with_js(args, tool):
                     "html_js" : html
                 }
 
-    if type(tool['id']) == list:
-        tool['id'] = tool['id'][0]
-    id_final = tool['id'].split("/")[-1]
     #Write the item with the id and the html:
-    write_json(html_item, f"{args.o_directory_htmls_js}/{id_final}.json")
-
-
-
-
-
-
-
+    write_json(html_item, f"{args.o_directory_htmls_js}/{tool['id_for_filename']}.json")
