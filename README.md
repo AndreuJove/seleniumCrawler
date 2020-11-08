@@ -6,39 +6,17 @@ This crawler aims to extract the HTMLs with JavaScript render from the websites 
 - Dataset of bioinformatics tools (used to get the websites of the bioinformatic tools).
 
 #### Output:
-- JSON file called by default "manifest_tools.json" inside the directory output_data that follows the next JSON schema:
 
 
-```
-manifest_tools_js.json = {
-  'tools_ok_js' : [
-                        {
-                        "final_url": type="string",
-                        "id": type="string",
-                        "name": type="string",
-                        "first_url": type="string",
-                        "path_file": type="string",
-                        "path_html_js": type="string",
-                        },
-
-                ...
-  ],
-}               
-                        
-```
-
-<br />
-
-- JSON file called by default "entry_n_js.json" inside the directory of htmls_no_js that follows the next JSON schema:
+- JSON file called by default by the name of each tool inside the directory of htmls_no_js that follows the next JSON schema:
 
 
 ```
 
-entry_n.json = {
+type="string" = {
   'id' : type="string",
  
-  'html_js' : type="string"
-                        
+  'html_js' : type="string"                 
 }
 
 ```
