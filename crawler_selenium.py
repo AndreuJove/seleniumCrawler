@@ -7,9 +7,6 @@ from webdriver_manager.chrome import ChromeDriverManager
 #Declared variable for avoiding innecessary log from ChromeDriverManager.
 os.environ['WDM_LOG_LEVEL'] = '0'
 
-"""
-Functions of crawler and managing data files.
-"""
 #Extract a name for tools:
 def extract_id_tool(iterable):
     for tool in iterable:
@@ -53,10 +50,12 @@ def get_html_document_with_js(args, tool):
     #Close the driver
     driver.close()
 
-    #Get the last part of the id to name the file of the HTML
+    #Get the last part of the id to name the file of the HTML.
+    #Add also the exception of the selenium crawler.
     html_item = {
                     "id" : tool['id'],
-                    "html_js" : html
+                    "html_js" : html,
+                    "exception_selenium" : tool['exception_selenium']
                 }
 
     #Write the item with the id and the html:
