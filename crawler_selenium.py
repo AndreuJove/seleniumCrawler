@@ -4,9 +4,12 @@ import json
 import random
 from selenium import webdriver
 from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.chrome.options import Options
+
+
 
 #Declared variable for avoiding innecessary log from ChromeDriverManager.
-os.environ['WDM_LOG_LEVEL'] = '0'
+
 
 USER_AGENT_LIST = [
     'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_5) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.1.1 Safari/605.1.15',
@@ -26,8 +29,9 @@ def load_json(path_file):
     with open(path_file) as output:
         return json.load(output)
 
-def get_html_document_with_js(args, tool):
-    print(f"INFO: Scraping {tool['final_url']}")
+def get_html_document_with_js(args, logger, tool):
+
+    os.environ['WDM_LOG_LEVEL'] = '0'
     driver = webdriver.Chrome(ChromeDriverManager().install())
     driver.set_page_load_timeout(30)
     driver.execute_cdp_cmd('Network.setUserAgentOverride', {"userAgent": random.choice(USER_AGENT_LIST)})
@@ -35,9 +39,8 @@ def get_html_document_with_js(args, tool):
     try:
         driver.get(tool['final_url'])
         html = driver.execute_script("return document.documentElement.outerHTML;")
-    # Catch the exception and write on the log file:
     except Exception as exception:
-        print(f"Exception {str(exception)}\t\t Website: {tool['final_url']}")
+        logger.error(f"Exception {str(exception)}\t\t Website: {tool['final_url']}")
     else:
         html_item = {
                 "first_url" : tool['first_url'],
@@ -45,17 +48,11 @@ def get_html_document_with_js(args, tool):
                 "html_js" : html,
             }
         write_json(html_item, f"{args.o_directory_htmls_js}/{tool['path_file']}")
-    #Seconds to wait for the renderitzation of JavaScript of the website
-    time.sleep(5)
-    #Extract all the HTML from the website if it's possible
-    print(driver.execute_script("return navigator.userAgent;"))
-
+    # Seconds to wait for the renderitzation of JavaScript of the website
+    time.sleep(10)
+    # Extract all the HTML from the website if it's possible
+    
     #Close the driver
     driver.close()
 
-    #Get the last part of the id to name the file of the HTML.
-    #Add also the exception of the selenium crawler.
-
-
-    #Write the item with the id and the html:
     
