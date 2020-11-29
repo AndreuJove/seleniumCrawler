@@ -22,6 +22,7 @@ def load_json(path_file):
 
 def main(args):
 
+    start_time = time.time()
      # Create the logger:
     logging.basicConfig(
                         level=logging.DEBUG,
@@ -58,13 +59,17 @@ def main(args):
     logging.info(f"INFO: Starting the crawler of {len(websites[args.key_access])}, this can take aproach 2h30minutes of execution.")
 
     # Call the function and passs the data to crawl:
-    pool.map(func, websites[args.key_access][:2])
+    pool.map(func, websites[args.key_access])
 
     list_files = os.listdir(args.o_directory_htmls_js)
 
     logging.info(f"INFO: Websites INPUT: {len(websites[args.key_access])}")
     logging.info(f"HTMLs saved: {len(list_files)}")
+    logging.info(f"Time of execution: {time.time() - start_time} seconds.")
 
+
+
+    os.system('systemctl poweroff') 
 
 if __name__ == "__main__":
 
