@@ -14,7 +14,9 @@ This crawler aims to extract the HTMLs with JavaScript render from the websites 
 ```
 
 type="string" = {
-  'id' : type="string",
+  'first_url' : type="string",
+
+  'final_url'   : type="string,
  
   'html_js' : type="string"                 
 }
