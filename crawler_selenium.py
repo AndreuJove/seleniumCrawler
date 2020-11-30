@@ -4,7 +4,6 @@ import json
 import random
 from selenium import webdriver
 from webdriver_manager.chrome import ChromeDriverManager
-from selenium.webdriver.chrome.options import Options
 
 
 #Declared variable for avoiding innecessary log from ChromeDriverManager.
@@ -38,18 +37,21 @@ def set_options_driver():
     options.add_argument("log-level=3")
     return options
 
-def get_chrome_driver():
+def get_chrome_driver(logg):
     options = set_options_driver()
-    # use normal crawler if not working use chrome manager to avoid crashing
+    # Use normal crawler if it is not working use chrome manager to avoid crashing.
     try:
         driver = webdriver.Chrome(chrome_options=options)
-    except:
+    except Exception as exception:
+        logg.error(f"Exception {str(exception)}")
         driver = webdriver.Chrome(ChromeDriverManager().install(), chrome_options=options)
     return driver
 
 def get_html_document_with_js(args, logger, tool):
-    driver = get_chrome_driver()
+    driver = get_chrome_driver(logger)
+    # Set a timeout for website
     driver.set_page_load_timeout(30)
+    # Rotate userAgents
     driver.execute_cdp_cmd('Network.setUserAgentOverride', {"userAgent": random.choice(USER_AGENT_LIST)})
     logger.info(f"Scraping: {tool['first_url']}")
     try:
