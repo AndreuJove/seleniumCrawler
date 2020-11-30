@@ -1,25 +1,23 @@
 
 ## Crawler description:
-This crawler aims to extract the HTMLs with JavaScript render from the websites of a dataset of bioinformatic tools.
+- This crawler aims to extract the HTMLs with JavaScript rendered from the websites of a dataset of bioinformatic tools.
 
 #### Input:
 - JSON file called by default "manifest_tools_scrapy.json" from [mastercrawlerTFG](https://github.com/AndreuJove/mastercrawlerTFG).
 
 #### Output:
 
-
 - JSON file called by default by the name of each tool inside the directory of htmls_no_js that follows the next JSON schema:
 
 
 ```
+entry_n.json = {
+                        'first_url' : type="string",
 
-type="string" = {
-  'first_url' : type="string",
-
-  'final_url'   : type="string,
- 
-  'html_js' : type="string"                 
-}
+                        'final_url'   : type="string,
+                        
+                        'html_js' : type="string"                 
+                }
 
 ```
 
