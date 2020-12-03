@@ -5,9 +5,10 @@ import random
 from selenium import webdriver
 from webdriver_manager.chrome import ChromeDriverManager
 
-
-#Declared variable for avoiding innecessary log from ChromeDriverManager.
+# Declared variable for avoiding innecessary log from ChromeDriverManager.
 os.environ['WDM_LOG_LEVEL'] = '0'
+
+# List of user_agents to rotate them:
 USER_AGENT_LIST = [
     'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_5) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.1.1 Safari/605.1.15',
     'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:77.0) Gecko/20100101 Firefox/77.0',
@@ -72,3 +73,4 @@ def get_html_document_with_js(args, logger, tool):
 
     #Close the driver
     driver.close()
+

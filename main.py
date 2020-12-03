@@ -65,6 +65,7 @@ def main(args):
     # Extract the websites saved in the directory.
     list_files = os.listdir(args.o_directory_htmls_js)
 
+    # last logging info:
     logging.info(f"INFO: Websites INPUT: {len(websites[args.key_access])}")
     logging.info(f"HTMLs saved: {len(list_files)}")
     logging.info(f"Time of execution: {time.time() - start_time} seconds.")
